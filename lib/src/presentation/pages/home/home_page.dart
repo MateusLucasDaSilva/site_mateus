@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:site_mateus/src/presentation/app/app_icons_paths.dart';
 import 'package:site_mateus/src/presentation/app/app_images_paths.dart';
+import 'package:site_mateus/src/presentation/pages/home/widgets/profile_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -13,8 +14,7 @@ class HomePage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            InitialPage(),
-            InitialPage(),
+            ProfilePage(),
           ],
         ),
       ),

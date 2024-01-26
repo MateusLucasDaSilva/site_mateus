@@ -6,6 +6,7 @@ class AppIconsPaths {
   static const String instagram = 'assets/images/instagram.png';
   static const String linkedin = 'assets/images/linkedin.png';
   static const String whatsapp = 'assets/images/whatsapp.png';
+  static const String logo = 'assets/images/logo.png';
 
   static const List<String> allIcons = [
     gitHub,
