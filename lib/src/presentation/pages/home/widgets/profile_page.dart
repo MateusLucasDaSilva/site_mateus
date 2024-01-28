@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:site_mateus/src/presentation/pages/home/home_page.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -19,6 +20,10 @@ class ProfilePage extends StatelessWidget {
               color: const Color(0xffC4C4C4),
             ),
           ),
+          const Align(
+            alignment: Alignment.centerRight,
+            child: ProfilePictureWidget(),
+          )
         ],
       ),
     );
