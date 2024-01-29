@@ -96,8 +96,8 @@ class ProfilePictureWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(40),
       child: Container(
-        height: 400,
-        width: 400,
+        height: 300,
+        width: 300,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(1000),
           border: Border.all(
