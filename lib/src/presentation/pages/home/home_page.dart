@@ -1,126 +1,62 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:site_mateus/src/presentation/app/app_icons_paths.dart';
-import 'package:site_mateus/src/presentation/app/app_images_paths.dart';
-import 'package:site_mateus/src/presentation/pages/home/widgets/profile_page.dart';
+import 'package:site_mateus/src/presentation/pages/about/about_page.dart';
+import 'package:site_mateus/src/presentation/pages/contact/contact_page.dart';
+import 'package:site_mateus/src/presentation/pages/portfolio/portfolio_page.dart';
+import 'package:site_mateus/src/presentation/pages/profile/profile_page.dart';
+import 'package:site_mateus/src/presentation/pages/skills/skills_page.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      backgroundColor: Colors.black87,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            ProfilePage(),
-          ],
-        ),
-      ),
-    );
-  }
+  State<HomePage> createState() => _HomePageState();
 }
 
-class InitialPage extends StatelessWidget {
-  const InitialPage({
-    super.key,
-  });
+class _HomePageState extends State<HomePage> {
+  final ScrollController _scroll = ScrollController();
+
+  void changeScroll(double percent) {
+    final position = percent * _scroll.position.maxScrollExtent;
+
+    _scroll.animateTo(position,
+        duration: const Duration(milliseconds: 200), curve: Curves.bounceIn);
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage(AppImagesPaths.background),
-          fit: BoxFit.cover,
-        ),
-      ),
-      height: MediaQuery.sizeOf(context).height,
-      width: MediaQuery.sizeOf(context).width,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const SizedBox(
-            width: 30,
+    return Stack(
+      children: [
+        Scaffold(
+          backgroundColor: Colors.black87,
+          body: SingleChildScrollView(
+            controller: _scroll,
+            child: const Column(
+              children: [
+                ProfilePage(),
+                AboutPage(),
+                SkillsPage(),
+                PortfolioPage(),
+                ContactPage(),
+              ],
+            ),
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const ProfilePictureWidget(),
-              Text(
-                'Mateus Lucas',
-                style: GoogleFonts.getFont('Instrument Serif')
-                    .copyWith(color: Colors.white, fontSize: 50),
+        ),
+        Positioned(
+          top: 0,
+          right: 0,
+          child: SizedBox(
+            height: MediaQuery.sizeOf(context).height,
+            child: RotatedBox(
+              quarterTurns: 1,
+              child: Slider(
+                value: 0.01,
+                onChanged: changeScroll,
               ),
-              Text(
-                'Desenvolvedor Flutter',
-                style: GoogleFonts.getFont('Instrument Serif')
-                    .copyWith(color: Colors.white, fontSize: 18),
-              ),
-              Row(
-                children: AppIconsPaths.allIcons
-                    .map(
-                      (e) => Container(
-                        padding: const EdgeInsets.all(5),
-                        height: 45,
-                        width: 45,
-                        child: Image.asset(
-                          e,
-                          fit: BoxFit.fill,
-                          height: 600,
-                          width: 600,
-                          color: Colors.white,
-                        ),
-                      ),
-                    )
-                    .toList(),
-              )
-            ],
+            ),
           ),
-        ],
-      ),
-    );
-  }
-}
-
-class ProfilePictureWidget extends StatelessWidget {
-  const ProfilePictureWidget({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(40),
-      child: Container(
-        height: 300,
-        width: 300,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(1000),
-          border: Border.all(
-            color: Colors.white,
-            width: 2,
-          ),
-          gradient: const LinearGradient(
-            begin: Alignment.bottomLeft,
-            end: Alignment.topRight,
-            colors: [
-              Color(0xff505050),
-              Color(0xff1b1b1b),
-            ],
-          ),
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(1000),
-          child: Image.asset(
-            AppImagesPaths.mateusSemFundo,
-            fit: BoxFit.cover,
-          ),
-        ),
-      ),
+        )
+      ],
     );
   }
 }
