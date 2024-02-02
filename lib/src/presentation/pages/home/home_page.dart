@@ -15,7 +15,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final ScrollController _scroll = ScrollController();
 
-  void changeScroll(double percent) {
+  void _changeScroll(double percent) {
     final position = percent * _scroll.position.maxScrollExtent;
 
     _scroll.animateTo(position,
@@ -51,7 +51,7 @@ class _HomePageState extends State<HomePage> {
               quarterTurns: 1,
               child: Slider(
                 value: 0.01,
-                onChanged: changeScroll,
+                onChanged: _changeScroll,
               ),
             ),
           ),
