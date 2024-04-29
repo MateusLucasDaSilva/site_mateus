@@ -3,6 +3,7 @@ import 'package:site_mateus/src/presentation/pages/about/about_page.dart';
 import 'package:site_mateus/src/presentation/pages/contact/contact_page.dart';
 import 'package:site_mateus/src/presentation/pages/portfolio/portfolio_page.dart';
 import 'package:site_mateus/src/presentation/pages/profile/profile_page.dart';
+import 'package:site_mateus/src/presentation/pages/profile/widgets/button_text_widget.dart';
 import 'package:site_mateus/src/presentation/pages/skills/skills_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -13,26 +14,35 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final ScrollController _scroll = ScrollController();
-
-  void _changeScroll(double percent) {
-    final position = percent * _scroll.position.maxScrollExtent;
-
-    _scroll.animateTo(position,
-        duration: const Duration(milliseconds: 200), curve: Curves.bounceIn);
-    setState(() {});
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Scaffold(
-          backgroundColor: Colors.black87,
-          body: SingleChildScrollView(
-            controller: _scroll,
-            child: const Column(
+    return const Scaffold(
+      backgroundColor: Colors.black87,
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            backgroundColor: Colors.black,
+            floating: true,
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
+                Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      ButtonTextWidget(label: 'About me'),
+                      ButtonTextWidget(label: 'Skills'),
+                      ButtonTextWidget(label: 'Portfolio'),
+                      ButtonTextWidget(label: 'Contact-me', isActive: true),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+          SliverList(
+            delegate: SliverChildListDelegate.fixed(
+              [
                 ProfilePage(),
                 AboutPage(),
                 SkillsPage(),
@@ -40,23 +50,9 @@ class _HomePageState extends State<HomePage> {
                 ContactPage(),
               ],
             ),
-          ),
-        ),
-        Positioned(
-          top: 0,
-          right: 0,
-          child: SizedBox(
-            height: MediaQuery.sizeOf(context).height,
-            child: RotatedBox(
-              quarterTurns: 1,
-              child: Slider(
-                value: 0.01,
-                onChanged: _changeScroll,
-              ),
-            ),
-          ),
-        )
-      ],
+          )
+        ],
+      ),
     );
   }
 }

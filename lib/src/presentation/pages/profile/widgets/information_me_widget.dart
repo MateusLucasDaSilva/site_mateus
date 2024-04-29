@@ -18,8 +18,8 @@ class InformationMeWidget extends StatelessWidget {
           width: 40,
           child: Image.asset(AppIconsPaths.logo),
         ),
-        const SizedBox(
-          height: 200,
+        SizedBox(
+          height: MediaQuery.sizeOf(context).height / 4,
         ),
         Text(
           'Hi, I am',

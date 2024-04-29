@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:site_mateus/src/presentation/pages/profile/widgets/information_me_widget.dart';
+import 'package:site_mateus/src/presentation/shared/app/app_colors.dart';
 
 class WidgetClip extends StatelessWidget {
   const WidgetClip({
@@ -13,11 +14,12 @@ class WidgetClip extends StatelessWidget {
       child: Container(
         height: MediaQuery.sizeOf(context).height,
         width: MediaQuery.sizeOf(context).width / 1.8,
-        color: const Color(0xffd7d7d7),
-        child: const Expanded(
+        color: AppColors.ligth,
+        child: Expanded(
           child: Padding(
-            padding: EdgeInsets.only(left: 170, top: 20),
-            child: InformationMeWidget(),
+            padding: EdgeInsets.only(
+                left: MediaQuery.sizeOf(context).width / 8, top: 20),
+            child: const InformationMeWidget(),
           ),
         ),
       ),
