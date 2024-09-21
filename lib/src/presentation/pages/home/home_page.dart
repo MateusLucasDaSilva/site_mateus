@@ -14,11 +14,16 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  ScrollController controller = ScrollController();
+
+
+
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       backgroundColor: Colors.black87,
       body: CustomScrollView(
+        controller: controller,
         slivers: [
           SliverAppBar(
             backgroundColor: Colors.black,
@@ -30,17 +35,21 @@ class _HomePageState extends State<HomePage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      ButtonTextWidget(label: 'About me'),
-                      ButtonTextWidget(label: 'Skills'),
-                      ButtonTextWidget(label: 'Portfolio'),
-                      ButtonTextWidget(label: 'Contact-me', isActive: true),
+                      const ButtonTextWidget(label: 'About me'),
+                      const ButtonTextWidget(label: 'Skills'),
+                      const ButtonTextWidget(label: 'Portfolio'),
+                      ButtonTextWidget(
+                        label: 'Contact-me',
+                        isActive: true,
+                        onTap: () => controller.jumpTo(controller.position.maxScrollExtent),
+                      ),
                     ],
                   ),
                 )
               ],
             ),
           ),
-          SliverList(
+          const SliverList(
             delegate: SliverChildListDelegate.fixed(
               [
                 ProfilePage(),
