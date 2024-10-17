@@ -11,7 +11,7 @@ class AboutPage extends StatelessWidget {
     final sizeH = MediaQuery.sizeOf(context).height;
     final sizeW = MediaQuery.sizeOf(context).width;
     return Container(
-      color: AppColors.ligth,
+      color: AppColors.light,
       height: sizeH,
       width: sizeW,
       child: Column(

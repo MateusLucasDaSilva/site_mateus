@@ -14,7 +14,7 @@ class WidgetClip extends StatelessWidget {
       child: Container(
         height: MediaQuery.sizeOf(context).height,
         width: MediaQuery.sizeOf(context).width / 1.8,
-        color: AppColors.ligth,
+        color: AppColors.light,
         child: Expanded(
           child: Padding(
             padding: EdgeInsets.only(
