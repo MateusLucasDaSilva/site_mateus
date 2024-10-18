@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:site_mateus/src/presentation/app/app_widget.dart';
+import 'package:site_mateus/src/presentation/pages/home/home_page.dart';
 
 class MyApp extends StatelessWidget {
   MyApp({super.key});
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: const AppWidget(),
+      home: const HomePage(),
     );
   }
 

@@ -16,15 +16,14 @@ class ButtonTextWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Container(
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 400),
         padding: const EdgeInsets.symmetric(horizontal: 20),
         height: 40,
-        decoration: isActive
-            ? BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-              )
-            : null,
+        decoration: BoxDecoration(
+          color: isActive ? Colors.white : Colors.transparent,
+          borderRadius: BorderRadius.circular(20),
+        ),
         alignment: Alignment.center,
         child: Text(
           isActive ? label.toUpperCase() : label,

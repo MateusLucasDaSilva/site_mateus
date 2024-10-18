@@ -13,10 +13,15 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
   ScrollController controller = ScrollController();
+  TabController? tabController;
 
-
+  @override
+  void initState() {
+    super.initState();
+    tabController = TabController(length: 4, vsync: this);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,24 +33,58 @@ class _HomePageState extends State<HomePage> {
           SliverAppBar(
             backgroundColor: Colors.black,
             floating: true,
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      const ButtonTextWidget(label: 'About me'),
-                      const ButtonTextWidget(label: 'Skills'),
-                      const ButtonTextWidget(label: 'Portfolio'),
-                      ButtonTextWidget(
-                        label: 'Contact-me',
-                        isActive: true,
-                        onTap: () => controller.jumpTo(controller.position.maxScrollExtent),
-                      ),
-                    ],
+            toolbarHeight: 0,
+            bottom: TabBar(
+              controller: tabController,
+              indicator: const BoxDecoration(),
+              tabs: [
+                ListenableBuilder(
+                  listenable: tabController!,
+                  builder: (context, child) => ButtonTextWidget(
+                    label: 'About me',
+                    isActive: tabController!.index < 1,
+                    onTap: () {
+                      tabController!.animateTo(0);
+                      controller.animateTo(curve: Curves.linear, duration: const Duration(milliseconds: 300), controller.position.minScrollExtent);
+                    },
                   ),
-                )
+                ),
+                ListenableBuilder(
+                    listenable: tabController!,
+                    builder: (context, _) {
+                      return ButtonTextWidget(
+                        label: 'Skills',
+                        isActive: tabController!.index >= 1 && tabController!.index < 2,
+                        onTap: () {
+                          tabController!.animateTo(1);
+                          controller.animateTo(curve: Curves.linear, duration: const Duration(milliseconds: 300), controller.position.maxScrollExtent / 4 * 2);
+                        },
+                      );
+                    }),
+                ListenableBuilder(
+                    listenable: tabController!,
+                    builder: (context, _) {
+                      return ButtonTextWidget(
+                        label: 'Portfolio',
+                        isActive: tabController!.index >= 2 && tabController!.index < 3,
+                        onTap: () {
+                          tabController!.animateTo(2);
+                          controller.animateTo(curve: Curves.linear, duration: const Duration(milliseconds: 300), controller.position.maxScrollExtent / 4 * 3);
+                        },
+                      );
+                    }),
+                ListenableBuilder(
+                    listenable: tabController!,
+                    builder: (context, _) {
+                      return ButtonTextWidget(
+                        label: 'Contact-me',
+                        isActive: tabController!.index >= 3 && tabController!.index <= 4,
+                        onTap: () {
+                          tabController!.animateTo(3);
+                          controller.animateTo(curve: Curves.linear, duration: const Duration(milliseconds: 300), controller.position.maxScrollExtent);
+                        },
+                      );
+                    }),
               ],
             ),
           ),
