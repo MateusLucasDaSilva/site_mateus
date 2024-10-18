@@ -1,3 +1,6 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:site_mateus/src/presentation/pages/about/about_page.dart';
 import 'package:site_mateus/src/presentation/pages/contact/contact_page.dart';
@@ -17,10 +20,33 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   ScrollController controller = ScrollController();
   TabController? tabController;
 
+  late Debounce debounceTab = Debounce(callback: debounceCallback, duration: 500);
+
+  void debounceCallback() {
+    final max = controller.position.maxScrollExtent;
+    final position = controller.position.pixels;
+
+    if ((max / position) >= 0.0 && (max / position) < 1.0) {
+      tabController!.animateTo(0);
+    }
+    if ((max / position) >= 1.0 && (max / position) < 2.0) {
+      tabController!.animateTo(1);
+    }
+    if ((max / position) >= 2.0 && (max / position) < 3.0) {
+      tabController!.animateTo(2);
+    }
+    if ((max / position) >= 3.0 && (max / position) < 4.0) {
+      tabController!.animateTo(3);
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     tabController = TabController(length: 4, vsync: this);
+    controller.addListener(() {
+      debounceTab.call();
+    });
   }
 
   @override
@@ -101,6 +127,28 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
           )
         ],
       ),
+    );
+  }
+}
+
+class Debounce {
+  final VoidCallback callback;
+  final int duration;
+  Debounce({
+    required this.callback,
+    required this.duration,
+  });
+
+  Timer? _timer;
+
+  void call() {
+    _timer?.cancel();
+
+    _timer = Timer.periodic(
+      Duration(milliseconds: duration),
+      (timer) {
+        callback.call();
+      },
     );
   }
 }
